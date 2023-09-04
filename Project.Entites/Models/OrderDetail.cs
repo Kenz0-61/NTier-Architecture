@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace Project.Entites.Models
 {
-    internal class OrderDetail
+    public class OrderDetail:BaseEntity
     {
+        public int OrderID { get; set; }
+
+        public int ProductID { get; set; }
+
+        //Relational - Navigation Properties
+
+        public virtual Order Order { get; set; }
+
+        public virtual Product Product { get; set; }
+
     }
 }

@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Project.Entites.Models
 {
-    internal class Category
+    public class Category:BaseEntity
     {
+        public string CategoryName { get; set; }
+
+        public string Description { get; set; }
+
+        //Relational - Navigation Properties
+
+        public virtual List<Product> Products { get; set; } // Çok ilişki bir CATEGORY birden cok PRODUCT'ta olabilir.
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Project.Entites.Enums
 {
-    internal class DataStatus
+    public enum DataStatus
     {
+        Inserted=1, Update=2, Delete=3
     }
 }

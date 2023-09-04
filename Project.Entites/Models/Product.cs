@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace Project.Entites.Models
 {
-    internal class Product
+    public class Product
     {
+        public string ProductName { get; set; }
+
+        public decimal UnitPrice { get; set; }
+
+        public int? CategoryID { get; set; } //ForeignKey
+
+        //Relational - Navigation Properties
+
+        public virtual Category Category { get; set; } // Bir product'da bir category olur
+
+        public virtual List<OrderDetail> OrderDetails { get; set; } //ÇokaÇok İlişki
     }
 }
