@@ -14,7 +14,7 @@ namespace Project.Entites.Models
 
         //Relatinaol - Navigation Property
 
-        public virtual AppUserProfile Profile { get; set; } /*Birebir İlişki*/
+        public virtual AppUserProfile AppUserProfile { get; set; } /*Birebir İlişki*/
 
         public virtual List<Order> Orders { get; set; } // Bir kullanıcının birde çok siparişi olabilir Çok ilişki
     }

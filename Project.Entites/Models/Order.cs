@@ -12,10 +12,16 @@ namespace Project.Entites.Models
 
         public int? AppUserId { get; set; } //ForeignKey
 
+        public int? ShipperID { get; set; } //ForeignKey
+
         //Relational - Navigation Properties
 
         public virtual AppUser User { get; set; } //Bir siparişin bir sahibi olabilir. Tek İlişki
 
         public virtual List<OrderDetail> OrderDetails { get; set; } //ÇokaÇok İlişki
+
+        public virtual AppUser AppUser { get; set; }
+
+        public virtual Shipper Shipper { get; set; }
     }
 }
