@@ -4,6 +4,7 @@ using Project.Dll.Context;
 using Project.Entites.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -83,47 +84,54 @@ namespace Project.BLL.DesignPatterns.GenericRepository.BaseRep
 
         public List<T> GetActives()
         {
-            return CustomWhere
+            return CustomWhere(x => x.Status != Entites.Enums.DataStatus.Deleted);
         }
 
         public List<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.Set<T>().ToList();
         }
 
         public List<T> GetDeleteds()
         {
-            throw new NotImplementedException();
+            return CustomWhere(x => x.Status == Entites.Enums.DataStatus.Deleted);
         }
 
         public List<T> GetModifeds()
         {
-            throw new NotImplementedException();
+            return CustomWhere(x => x.Status == Entites.Enums.DataStatus.Updated);
         }
 
-        public object Select(Expression<Func<T, object>> exp)
+        public object ObjectSelect(Expression<Func<T, object>> exp)
         {
-            throw new NotImplementedException();
+            return _db.Set<T>().Select(exp);
         }
 
-        public IQueryable<X> Select<X>(Expression<Func<T, X>> exp)
+        public IQueryable<X> CustomSelect<X>(Expression<Func<T, X>> exp)
         {
-            throw new NotImplementedException();
+            return _db.Set<T>().Select(exp);
         }
 
         public void Update(T item)
         {
-            throw new NotImplementedException();
+            item.Status = Entites.Enums.DataStatus.Updated;
+            item.ModifedDate = DateTime.Now;
+            T unchangedEntity = Find(item.Id);
+            _db.Entry(unchangedEntity).CurrentValues.SetValues(item); // Database git abonelik giriş gerçekleştir. Değişmemiş enttiy bul, onun mevcut değerlerini setvalues methodu ile verilen item paramatresi ile değiştir.
+            Save();           
         }
 
         public void UpdateRange(List<T> list)
         {
-            throw new NotImplementedException();
+            foreach (T item in list) 
+            {
+                Update(item);
+            }
         }
 
         public List<T> CustomWhere(Expression<Func<T, bool>> exp)
         {
-            throw new NotImplementedException();
+            return _db.Set<T>().Where(exp).ToList();
         }
 
         

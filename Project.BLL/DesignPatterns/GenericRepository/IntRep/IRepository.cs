@@ -46,9 +46,9 @@ namespace Project.BLL.DesignPatterns.GenericRepository.IntRep
 
         T FirstOrDefault(Expression<Func<T, bool>> exp);
 
-        object Select(Expression<Func<T, object>> exp); //_db.Products.Select(x=> new{}) Anonymus object döndürmek için ideal yapıdır.
+        object ObjectSelect(Expression<Func<T, object>> exp); //_db.Products.Select(x=> new{}) Anonymus object döndürmek için ideal yapıdır.
 
-        IQueryable<X> Select<X>(Expression<Func<T, X>> exp); //_db.Products.Select(x=> new ProductDTO{})
+        IQueryable<X> CustomSelect<X>(Expression<Func<T, X>> exp); //_db.Products.Select(x=> new ProductDTO{})
 
         //Find Command
 

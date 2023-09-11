@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Project.BLL.DesignPatterns.GenericRepository.BaseRep;
+using Project.Entites.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project.BLL.DesignPatterns.GenericRepository.ConcRep
 {
-    internal class Order
+    public class OrderRepository:BaseRepository<Order>
     {
     }
 }
