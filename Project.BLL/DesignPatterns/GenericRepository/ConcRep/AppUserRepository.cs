@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project.Entites.Enums
+namespace Project.BLL.DesignPatterns.GenericRepository.ConcRep
 {
-    public enum DataStatus
+    internal class AppUserRepository
     {
-        Inserted=1, Updated=2, Deleted=3
     }
 }
