@@ -54,6 +54,81 @@ namespace Project.WinFormUi
         private void Form2_Load(object sender, EventArgs e)
         {
             ListCategories();
+            ListProducts();
         }
+
+        private void lstProducts_Click(object sender, EventArgs e)
+        {
+            if (lstProducts.SelectedIndex>1)
+            {
+                _selected = (ProductVM)lstProducts.SelectedItem;
+                txtName.Text = _selected.ProductName;
+                txtPrice.Text =_selected.UnitPrice.ToString();
+                cmbCategories.SelectedValue = _selected.CategoryID != null ? _selected.CategoryID.Value : -1;
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Product p = new Product();
+                p.ProductName = txtName.Text;
+                p.UnitPrice = Convert.ToDecimal(txtPrice.Text);
+
+                if (cmbCategories.SelectedIndex > -1)
+                p.CategoryID = Convert.ToInt32(cmbCategories.SelectedValue);
+                
+                _dbProductRepo.Add(p);
+                ListProducts();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (_selected != null)
+            {
+                Product toBeDeleted = _dbProductRepo.Find(_selected.ID);
+                _dbProductRepo.Delete(toBeDeleted);
+                ListProducts();
+                _selected = null;
+                txtName.Text = txtPrice.Text = null;
+                cmbCategories.SelectedIndex = -1;
+            }
+            else
+            {
+                MessageBox.Show("Lütfen bir ürün seçinizi ...");
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_selected != null)
+                {
+                    Product toBeUpdated = _dbProductRepo.Find(_selected.ID);
+                    toBeUpdated.ProductName = txtName.Text;
+                    toBeUpdated.UnitPrice = Convert.ToDecimal(txtPrice.Text);
+                    if (cmbCategories.SelectedIndex > -1) toBeUpdated.CategoryID = Convert.ToInt32(cmbCategories.SelectedValue);
+                    _dbProductRepo.Update(toBeUpdated);
+                    ListProducts();
+                    _selected = null;
+                    txtName.Text = txtPrice.Text = null;
+                    cmbCategories.SelectedIndex = -1;
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }    
     }
 }
