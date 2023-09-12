@@ -109,7 +109,7 @@ namespace Project.BLL.DesignPatterns.GenericRepository.BaseRep
 
         public IQueryable<X> CustomSelect<X>(Expression<Func<T, X>> exp)
         {
-            return _db.Set<T>().Select(exp);
+            return _db.Set<T>().Where(x=>x.Status != Entites.Enums.DataStatus.Deleted).Select(exp);
         }
 
         public void Update(T item)
